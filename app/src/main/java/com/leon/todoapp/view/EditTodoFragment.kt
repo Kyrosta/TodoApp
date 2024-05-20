@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
-import com.leon.todoapp.R
+import androidx.navigation.Navigation
 import com.leon.todoapp.databinding.FragmentCreateTodoBinding
 import com.leon.todoapp.viewmodel.DetailTodoViewModel
 
@@ -31,11 +33,33 @@ class EditTodoFragment : Fragment() {
         val uuid = EditTodoFragmentArgs.fromBundle(requireArguments()).uuid
         viewModel.fetch(uuid)
 
+        binding.btnAdd.setOnClickListener {
+            val radioID = binding.radioGroupPriority.checkedRadioButtonId
+            val radio = view.findViewById<RadioButton>(radioID)
+            val priority = radio.tag.toString().toInt()
+
+            viewModel.update(binding.txtTitle.text.toString(),
+                binding.txtNotes.text.toString(),
+                priority, uuid)
+
+            Toast.makeText(view.context, "Todo updated", Toast.LENGTH_SHORT).show()
+            Navigation.findNavController(it).popBackStack()
+        }
+
         observeViewModel()
     }
 
     fun observeViewModel(){
+        viewModel.todoLD.observe(viewLifecycleOwner, Observer {
+            binding.txtTitle.setText(it.title)
+            binding.txtNotes.setText(it.notes)
 
+            when(it.priority){
+                1 -> binding.radioLow.isChecked = true
+                2-> binding.radioMedium.isChecked = true
+                else -> binding.radioHigh.isChecked = true
+            }
+        })
     }
 
 }
