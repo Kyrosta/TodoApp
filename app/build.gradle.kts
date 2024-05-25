@@ -9,7 +9,10 @@ plugins {
 android {
     namespace = "com.leon.todoapp"
     compileSdk = 34
-    buildFeatures{viewBinding=true}
+    buildFeatures{
+        viewBinding=true
+        dataBinding=true
+    }
 
     defaultConfig {
         applicationId = "com.leon.todoapp"
