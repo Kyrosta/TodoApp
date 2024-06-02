@@ -1,5 +1,6 @@
 package com.leon.todoapp.view
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +41,11 @@ class TodoListAdapter(val todoList:ArrayList<Todo>,
         holder.binding.todo = todoList[position]
         holder.binding.listener = this
         holder.binding.editListener = this
+
+        holder.binding.checkTask.isChecked = false
+        if (todoList[position].isDone == 1){
+            holder.binding.checkTask.isChecked = true
+        }
     }
 
     override fun getItemCount(): Int {
@@ -55,6 +61,7 @@ class TodoListAdapter(val todoList:ArrayList<Todo>,
     override fun onCheckedChange(cb: CompoundButton, isCheckedBoolean: Boolean, obj: Todo) {
         if(cb.isPressed){
             adapterOnClick(obj)
+            //cb.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG;
        }
     }
 
