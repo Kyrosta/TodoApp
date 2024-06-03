@@ -2,7 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
         <variable
             name="todo"
@@ -17,19 +16,20 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <CheckBox
             android:id="@+id/checkTask"
-            android:layout_width="350dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="8dp"
-            android:text="@{todo.title}"
+            android:isScrollContainer="false"
             android:onCheckedChanged="@{(cb,isChecked) -> listener.onCheckedChange(cb,isChecked,todo)}"
+            android:text="@{todo.title}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.262"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,12 +37,12 @@
             android:id="@+id/imgEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="16dp"
             android:onClick="@{editListener::onTodoEditClick}"
             android:tag="@{todo.uuid}"
             app:layout_constraintBottom_toBottomOf="@+id/checkTask"
             app:layout_constraintEnd_toEndOf="@+id/checkTask"
-            app:layout_constraintTop_toTopOf="@+id/checkTask"
-            app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/baseline_edit_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
